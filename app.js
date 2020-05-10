@@ -9,6 +9,15 @@ let campgrounds = [
 	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
 	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
 	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
+	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"}
 ]
 
 app.get("/", (req,res) => {
