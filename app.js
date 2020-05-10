@@ -1,44 +1,62 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
+mongoose.connect("mongodb://localhost:27017/yelpcamp", {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
-let campgrounds = [
-	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 1", image: "https://pixabay.com/get/57e8d1454b56ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 2", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"},
-	{name: "Sample 3", image: "https://pixabay.com/get/57e1d14a4e52ae14f1dc84609620367d1c3ed9e04e5074417c2f78dc924ac2_340.jpg"}
-]
+//SCHEMA SETUP
+const campgroundsSchema = new mongoose.Schema({
+	name: String,
+	image: String,
+	description: String
+});
+
+const Campground = mongoose.model("Campground", campgroundsSchema);
 
 app.get("/", (req,res) => {
 	res.render("landing");
 });
 
 app.get("/campgrounds", (req,res) => {
-	res.render("campgrounds", {campgrounds: campgrounds});
-});
+	Campground.find({}, (err, allcampgrounds) => {
+		if (err) {
 
+		} else {
+			res.render("campgrounds", {campgrounds: allcampgrounds})
+		}
+	});
+});
 
 app.post("/campgrounds", (req,res) => {
 	let name = req.body.name;
 	let image = req.body.image;
-	let newCampground = {name: name, image: image};
-	campgrounds.push(newCampground);
-	res.redirect("/campgrounds");
+	let description = req.body.description;
+	let newCampground = {name: name, image: image, description: description};
+	Campground.create(newCampground, (err, newlycreated) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(newlycreated);
+			res.redirect("/campgrounds");
+		}
+	})
 });
 
 app.get("/campgrounds/new", (req, res) => {
 	res.render("new");
+});
+
+app.get("/campgrounds/:id", (req, res) => {
+	Campground.findById(req.params.id, (err, foundCampground) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render("show", {campground: foundCampground});
+		}
+	});
 });
 
 app.listen(3000, function(){
